@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block export %}
+<li class="nav-item">
+    <button class="btn btn-outline-success me-2" type="button">Export CSV</button>
+</li>
+{% endblock %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item Name</th>
+            <th scope="col">Article Number</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.article_no}}</td>
+            <td>{{item.stock}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

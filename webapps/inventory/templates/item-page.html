@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" class="mt-5" action="{% url 'item-page' %}" enctype="multipart/form-data">
+    <table class="item_form">
+        {% for field in form.visible_fields %}
+            <tr>
+                <td>{{field.label_tag}}</td>
+                <td>{{field}}</td>
+                <td class="error">
+                    {% for error in field.errors %} {{error}} {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr><td colspan="3"><button type="submit" id="id_update_item_button">Submit</button></td></tr>
+        {% csrf_token %}
+    </table>
+</form>
+{% endblock %}
