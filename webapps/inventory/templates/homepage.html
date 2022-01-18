@@ -26,8 +26,15 @@
             <td>{{item.name}}</td>
             <td>{{item.article_no}}</td>
             <td>{{item.stock}}</td>
-            <td></td>
-            <td></td>
+            <td>
+
+            </td>
+            <td>
+                <form action="{% url 'delete-item' item.id %}" method="POST">
+                    <button> &#10005;</button>
+                    {% csrf_token %}
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

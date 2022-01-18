@@ -43,3 +43,17 @@ def item_page(request):
     new_item.save()
 
     return redirect(reverse('home'))
+
+# delete the item
+def delete_item(request, id):
+    item = get_object_or_404(Item, id=id)
+
+    context = {}
+
+    if request.method != 'POST':
+        context['message'] = 'Deletes must be done using the POST method'
+    else:
+        item.delete()
+        context['message'] = 'Item deleted.'
+
+    return redirect(reverse('home'))
