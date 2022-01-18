@@ -6,5 +6,5 @@ urlpatterns = [
     
     path('item-page', views.item_page, name='item-page'),
     path('delete-item/<int:id>', views.delete_item, name='delete-item'),
-
+    path('edit-item/<int:id>', views.edit_item, name='edit-item'),
 ]

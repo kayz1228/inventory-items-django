@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+
 <table class="table">
     <thead>
         <tr>
@@ -27,11 +28,13 @@
             <td>{{item.article_no}}</td>
             <td>{{item.stock}}</td>
             <td>
-
+                <form action="{% url 'edit-item' item.id %}" method="GET">
+                    <button>&#10000;</button>
+                </form>
             </td>
             <td>
                 <form action="{% url 'delete-item' item.id %}" method="POST">
-                    <button> &#10005;</button>
+                    <button>&#10005;</button>
                     {% csrf_token %}
                 </form>
             </td>

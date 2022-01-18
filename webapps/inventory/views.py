@@ -44,16 +44,39 @@ def item_page(request):
 
     return redirect(reverse('home'))
 
-# delete the item
+# delete an item
 def delete_item(request, id):
     item = get_object_or_404(Item, id=id)
 
     context = {}
 
-    if request.method != 'POST':
-        context['message'] = 'Deletes must be done using the POST method'
-    else:
+    if request.method == 'POST':
         item.delete()
-        context['message'] = 'Item deleted.'
 
     return redirect(reverse('home'))
+
+# edit an item
+def edit_item(request, id):
+    item = get_object_or_404(Item, id=id)
+
+    if request.method == 'GET':
+        context = { 'item': item, 
+                    'form':ItemForm(initial={'name': item.name,
+                                                'stock': item.stock,
+                                                'article_no': item.article_no})}
+        return render(request, 'edit-item.html', context)
+
+    form = ItemForm(request.POST)
+    if not form.is_valid():
+        context = { 'item': item, 'form': form }
+        return render(request, 'edit-item.html', context)
+
+    item.article_no = form.cleaned_data['article_no']
+    item.name = form.cleaned_data['name']
+    item.stock = form.cleaned_data['stock']
+    item.save()
+
+    context = { 'item': item, 
+                'form': form, 
+                'message': 'Update Successfully'}
+    return render(request, 'edit-item.html', context)

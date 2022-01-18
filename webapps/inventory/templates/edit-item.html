@@ -3,8 +3,8 @@
 {% block content %}
 <h2>{{message}}</h2>
 
-<form method="POST" class="mt-5" action="{% url 'item-page' %}" enctype="multipart/form-data">
-    <table class="item_form">
+<form enctype="multipart/form-data" action="{% url 'edit-item' item.id %}" method="post" class="edit-form">
+    <table>
         {% for field in form.visible_fields %}
             <tr>
                 <td>{{field.label_tag}}</td>
@@ -14,9 +14,9 @@
                 </td>
             </tr>
         {% endfor %}
-        <tr><td colspan="3"><button type="submit" id="id_update_item_button">Submit</button></td></tr>
-        {% csrf_token %}
+        <tr><td colspan="3"><input type="submit" value="Submit"></td></tr>
     </table>
+    {% csrf_token %}
 </form>
 
 <hr>
