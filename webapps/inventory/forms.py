@@ -18,11 +18,10 @@ class ItemForm(forms.ModelForm):
     # Form validation for properties that apply to more
     # than one field.  Overrides the forms.Form.clean function.
     def clean(self):
-        # Calls our parent (forms.Form) .clean function, gets a dictionary
+        # Calls parent (forms.Form) .clean function, gets a dictionary
         # of cleaned data as a result
         cleaned_data = super().clean()
 
-        # Confirms that the two password fields match
         name = cleaned_data.get('name')
         article_no = cleaned_data.get('article_no')
         stock = cleaned_data.get('stock')
@@ -34,14 +33,13 @@ class ItemForm(forms.ModelForm):
         if not stock:
             raise forms.ValidationError("You must enter stock of the item.")
 
-        # We must return the cleaned data we got from our parent.
         return cleaned_data
     
     # Form validation for the article number field.
-    def clean_no(self):
-        article_no = self.cleaned_data.get('article_no')
-        if Item.objects.filter(article_no__exact=article_no):
+    def clean_article_no(self):
+        article = self.cleaned_data.get('article_no')
+        if Item.objects.filter(article_no=article):
             raise forms.ValidationError("Item article number already exists.")
 
         # Return the cleaned data got from the cleaned_data dictionary
-        return article_no
+        return article

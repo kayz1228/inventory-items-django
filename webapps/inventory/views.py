@@ -2,11 +2,13 @@ from django.shortcuts import render
 
 from inventory.forms import ItemForm
 from inventory.models import Item
+from inventory.admin import download_csv
 
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
+from django.http import HttpResponse
 
-# Add a 
+# list all items
 def home(request):
     if request.method == "GET":
         all_items = Item.objects.all().order_by("name")
@@ -20,7 +22,7 @@ def home(request):
 def item_page(request):
     context = {}
 
-    # Display the add-item page if this is a 'GET' request
+    # Display item page if this is a 'GET' request
     if request.method == 'GET':
         context['form'] = ItemForm()
         return render(request, 'item-page.html', context)
@@ -38,8 +40,7 @@ def item_page(request):
     # If form data is valid. Add a new item.
     new_item = Item(name=form.cleaned_data['name'],
                     stock=form.cleaned_data['stock'],
-                    article_no=form.cleaned_data['article_no']
-                    )
+                    article_no=form.cleaned_data['article_no'])
     new_item.save()
 
     return redirect(reverse('home'))
@@ -47,8 +48,6 @@ def item_page(request):
 # delete an item
 def delete_item(request, id):
     item = get_object_or_404(Item, id=id)
-
-    context = {}
 
     if request.method == 'POST':
         item.delete()
@@ -80,3 +79,11 @@ def edit_item(request, id):
                 'form': form, 
                 'message': 'Update Successfully'}
     return render(request, 'edit-item.html', context)
+
+# source:
+# https://stackoverflow.com/questions/18685223/how-to-export-django-model-data-into-csv-file/18689442
+def export_csv(request):
+  # Create the HttpResponse object with the appropriate CSV header.
+  data = download_csv(request, Item.objects.all())
+  response = HttpResponse(data, content_type='text/csv')
+  return response

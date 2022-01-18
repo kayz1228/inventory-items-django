@@ -2,7 +2,9 @@
 
 {% block export %}
 <li class="nav-item">
-    <button class="btn btn-outline-success me-2" type="button">Export CSV</button>
+    <a href="{% url 'export-csv' %}">
+        <button class="btn btn-outline-success me-2" type="button">Export CSV</button>
+    </a>
 </li>
 {% endblock %}
 
