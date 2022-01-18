@@ -26,24 +26,29 @@ You could browse this webapp now. <br />
 <br />
 **Note:** It could be possible that the given virtual environment is not working. You could create a new virtual environment(or run locally, the you would change every 'python' to 'python3' when prompting). <br />
 1.1 Install python3 from https://python.org <br />
+
 1.2 Choose a location in which to create the virtual environment. Let's call it "venv".
 ```
-python3 -m venv my_env <br />
+python3 -m venv my_env
 ```
+
 1.3 On MAC/Unix: <br />
 ```
-source my_env/bin/activate <br />
+source my_env/bin/activate
 ```
+
 On Windows: <br />
 ```
-my_env\Scripts\activate.bat <br />
+my_env\Scripts\activate.bat
 ```
+
 1.4 Upgrade pip to the most current versions <br />
 ```
-pip install –-upgrade pip <br />
+pip install –-upgrade pip
 ```
+
 Install Django <br />
 ```
-pip install django <br />
+pip install django
 ```
 1.5 Do steps from 2 - 4. <br />
